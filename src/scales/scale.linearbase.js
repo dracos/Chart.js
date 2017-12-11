@@ -14,7 +14,7 @@ module.exports = function(Chart) {
 			// If we are forcing it to begin at 0, but 0 will already be rendered on the chart,
 			// do nothing since that would make the chart weird. If the user really wants a weird chart
 			// axis, they can manually override it
-			if (tickOpts.beginAtZero) {
+/*			if (tickOpts.beginAtZero) {
 				var minSign = helpers.sign(me.min);
 				var maxSign = helpers.sign(me.max);
 
@@ -26,7 +26,7 @@ module.exports = function(Chart) {
 					me.min = 0;
 				}
 			}
-
+*/
 			if (tickOpts.min !== undefined) {
 				me.min = tickOpts.min;
 			} else if (tickOpts.suggestedMin !== undefined) {

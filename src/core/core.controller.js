@@ -3,7 +3,7 @@
 module.exports = function(Chart) {
 
 	var helpers = Chart.helpers;
-	var plugins = Chart.plugins;
+//	var plugins = Chart.plugins;
 	var platform = Chart.platform;
 
 	// Create a dictionary of chart types, to allow for extension of existing types
@@ -53,7 +53,7 @@ module.exports = function(Chart) {
 		}
 
 		// Tooltip
-		chart.tooltip._options = newOptions.tooltips;
+//		chart.tooltip._options = newOptions.tooltips;
 	}
 
 	function positionIsHorizontal(position) {
@@ -128,24 +128,24 @@ module.exports = function(Chart) {
 			var me = this;
 
 			// Before init plugin notification
-			plugins.notify(me, 'beforeInit');
+//			plugins.notify(me, 'beforeInit');
 
 			helpers.retinaScale(me);
 
 			me.bindEvents();
 
-			if (me.options.responsive) {
+//			if (me.options.responsive) {
 				// Initial resize before chart draws (must be silent to preserve initial animations).
 				me.resize(true);
-			}
+//			}
 
 			// Make sure scales have IDs and are built before we build any controllers.
 			me.ensureScalesHaveIDs();
 			me.buildScales();
-			me.initToolTip();
+//			me.initToolTip();
 
 			// After init plugin notification
-			plugins.notify(me, 'afterInit');
+//			plugins.notify(me, 'afterInit');
 
 			return me;
 		},
@@ -154,13 +154,13 @@ module.exports = function(Chart) {
 			helpers.clear(this);
 			return this;
 		},
-
+/*
 		stop: function() {
 			// Stops any current animation loop occurring
 			Chart.animationService.cancelAnimation(this);
 			return this;
 		},
-
+*/
 		resize: function(silent) {
 			var me = this;
 			var options = me.options;
@@ -186,15 +186,15 @@ module.exports = function(Chart) {
 			if (!silent) {
 				// Notify any plugins about the resize
 				var newSize = {width: newWidth, height: newHeight};
-				plugins.notify(me, 'resize', [newSize]);
+//				plugins.notify(me, 'resize', [newSize]);
 
 				// Notify of resize
 				if (me.options.onResize) {
 					me.options.onResize(me, newSize);
 				}
 
-				me.stop();
-				me.update(me.options.responsiveAnimationDuration);
+//				me.stop();
+				me.update(0);
 			}
 		},
 
@@ -319,32 +319,34 @@ module.exports = function(Chart) {
 		 * Reset the elements of all datasets
 		 * @private
 		 */
+/*
 		resetElements: function() {
 			var me = this;
 			helpers.each(me.data.datasets, function(dataset, datasetIndex) {
 				me.getDatasetMeta(datasetIndex).controller.reset();
 			}, me);
 		},
-
+*/
 		/**
 		* Resets the chart back to it's state before the initial animation
 		*/
+/*
 		reset: function() {
 			this.resetElements();
 			this.tooltip.initialize();
 		},
-
+*/
 		update: function(animationDuration, lazy) {
 			var me = this;
 
 			updateConfig(me);
 
-			if (plugins.notify(me, 'beforeUpdate') === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeUpdate') === false) {
+//				return;
+//			}
 
 			// In case the entire data object changed
-			me.tooltip._data = me.data;
+//			me.tooltip._data = me.data;
 
 			// Make sure dataset controllers are updated and new controllers are reset
 			var newControllers = me.buildOrUpdateControllers();
@@ -364,7 +366,7 @@ module.exports = function(Chart) {
 			me.updateDatasets();
 
 			// Do this before render so that any plugins that need final scale updates can use it
-			plugins.notify(me, 'afterUpdate');
+//			plugins.notify(me, 'afterUpdate');
 
 			if (me._bufferedRender) {
 				me._bufferedRequest = {
@@ -384,9 +386,9 @@ module.exports = function(Chart) {
 		updateLayout: function() {
 			var me = this;
 
-			if (plugins.notify(me, 'beforeLayout') === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeLayout') === false) {
+//				return;
+//			}
 
 			Chart.layoutService.update(this, this.width, this.height);
 
@@ -397,8 +399,8 @@ module.exports = function(Chart) {
 			 * @todo remove at version 3
 			 * @private
 			 */
-			plugins.notify(me, 'afterScaleUpdate');
-			plugins.notify(me, 'afterLayout');
+//			plugins.notify(me, 'afterScaleUpdate');
+//			plugins.notify(me, 'afterLayout');
 		},
 
 		/**
@@ -409,15 +411,15 @@ module.exports = function(Chart) {
 		updateDatasets: function() {
 			var me = this;
 
-			if (plugins.notify(me, 'beforeDatasetsUpdate') === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeDatasetsUpdate') === false) {
+//				return;
+//			}
 
 			for (var i = 0, ilen = me.data.datasets.length; i < ilen; ++i) {
 				me.updateDataset(i);
 			}
 
-			plugins.notify(me, 'afterDatasetsUpdate');
+//			plugins.notify(me, 'afterDatasetsUpdate');
 		},
 
 		/**
@@ -433,28 +435,28 @@ module.exports = function(Chart) {
 				index: index
 			};
 
-			if (plugins.notify(me, 'beforeDatasetUpdate', [args]) === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeDatasetUpdate', [args]) === false) {
+//				return;
+//			}
 
 			meta.controller.update();
 
-			plugins.notify(me, 'afterDatasetUpdate', [args]);
+//			plugins.notify(me, 'afterDatasetUpdate', [args]);
 		},
 
 		render: function(duration, lazy) {
 			var me = this;
 
-			if (plugins.notify(me, 'beforeRender') === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeRender') === false) {
+//				return;
+//			}
 
 			var animationOptions = me.options.animation;
 			var onComplete = function(animation) {
-				plugins.notify(me, 'afterRender');
+//				plugins.notify(me, 'afterRender');
 				helpers.callback(animationOptions && animationOptions.onComplete, [animation], me);
 			};
-
+/*
 			if (animationOptions && ((typeof duration !== 'undefined' && duration !== 0) || (typeof duration === 'undefined' && animationOptions.duration !== 0))) {
 				var animation = new Chart.Animation({
 					numSteps: (duration || animationOptions.duration) / 16.66, // 60 fps
@@ -474,29 +476,29 @@ module.exports = function(Chart) {
 
 				Chart.animationService.addAnimation(me, animation, duration, lazy);
 			} else {
-				me.draw();
+*/				me.draw();
 
 				// See https://github.com/chartjs/Chart.js/issues/3781
-				onComplete(new Chart.Animation({numSteps: 0, chart: me}));
-			}
+				onComplete(); // XXX new Chart.Animation({numSteps: 0, chart: me}));
+//			}
 
 			return me;
 		},
 
-		draw: function(easingValue) {
+		draw: function() {
 			var me = this;
 
 			me.clear();
-
+/*
 			if (easingValue === undefined || easingValue === null) {
 				easingValue = 1;
 			}
+*/
+			me.transition();
 
-			me.transition(easingValue);
-
-			if (plugins.notify(me, 'beforeDraw', [easingValue]) === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeDraw', [easingValue]) === false) {
+//				return;
+//			}
 
 			// Draw all the scales
 			helpers.each(me.boxes, function(box) {
@@ -507,27 +509,27 @@ module.exports = function(Chart) {
 				me.scale.draw();
 			}
 
-			me.drawDatasets(easingValue);
+			me.drawDatasets();
 
 			// Finally draw the tooltip
-			me.tooltip.draw();
+//			me.tooltip.draw();
 
-			plugins.notify(me, 'afterDraw', [easingValue]);
+//			plugins.notify(me, 'afterDraw', [easingValue]);
 		},
 
 		/**
 		 * @private
 		 */
-		transition: function(easingValue) {
+		transition: function() {
 			var me = this;
 
 			for (var i=0, ilen=(me.data.datasets || []).length; i<ilen; ++i) {
 				if (me.isDatasetVisible(i)) {
-					me.getDatasetMeta(i).controller.transition(easingValue);
+					me.getDatasetMeta(i).controller.transition();
 				}
 			}
 
-			me.tooltip.transition(easingValue);
+//			me.tooltip.transition(easingValue);
 		},
 
 		/**
@@ -535,21 +537,21 @@ module.exports = function(Chart) {
 		 * hook, in which case, plugins will not be called on `afterDatasetsDraw`.
 		 * @private
 		 */
-		drawDatasets: function(easingValue) {
+		drawDatasets: function() {
 			var me = this;
 
-			if (plugins.notify(me, 'beforeDatasetsDraw', [easingValue]) === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeDatasetsDraw', [easingValue]) === false) {
+//				return;
+//			}
 
 			// Draw datasets reversed to support proper line stacking
 			for (var i=(me.data.datasets || []).length - 1; i >= 0; --i) {
 				if (me.isDatasetVisible(i)) {
-					me.drawDataset(i, easingValue);
+					me.drawDataset(i);
 				}
 			}
 
-			plugins.notify(me, 'afterDatasetsDraw', [easingValue]);
+//			plugins.notify(me, 'afterDatasetsDraw', [easingValue]);
 		},
 
 		/**
@@ -557,24 +559,24 @@ module.exports = function(Chart) {
 		 * hook, in which case, plugins will not be called on `afterDatasetDraw`.
 		 * @private
 		 */
-		drawDataset: function(index, easingValue) {
+		drawDataset: function(index) {
 			var me = this;
 			var meta = me.getDatasetMeta(index);
 			var args = {
 				meta: meta,
 				index: index,
-				easingValue: easingValue
+				//easingValue: easingValue
 			};
 
-			if (plugins.notify(me, 'beforeDatasetDraw', [args]) === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeDatasetDraw', [args]) === false) {
+//				return;
+//			}
 
-			meta.controller.draw(easingValue);
+			meta.controller.draw();
 
-			plugins.notify(me, 'afterDatasetDraw', [args]);
+//			plugins.notify(me, 'afterDatasetDraw', [args]);
 		},
-
+/*
 		// Get the single element that was clicked on
 		// @return : An object containing the dataset index and element index of the matching element. Also contains the rectangle that was draw
 		getElementAtEvent: function(e) {
@@ -601,7 +603,7 @@ module.exports = function(Chart) {
 		getDatasetAtEvent: function(e) {
 			return Chart.Interaction.modes.dataset(this, e, {intersect: true});
 		},
-
+*/
 		getDatasetMeta: function(datasetIndex) {
 			var me = this;
 			var dataset = me.data.datasets[datasetIndex];
@@ -642,7 +644,7 @@ module.exports = function(Chart) {
 			// the dataset.hidden value is ignored, else if null, the dataset hidden state is returned.
 			return typeof meta.hidden === 'boolean'? !meta.hidden : !this.data.datasets[datasetIndex].hidden;
 		},
-
+/*
 		generateLegend: function() {
 			return this.options.legendCallback(this);
 		},
@@ -671,7 +673,7 @@ module.exports = function(Chart) {
 				me.ctx = null;
 			}
 
-			plugins.notify(me, 'destroy');
+//			plugins.notify(me, 'destroy');
 
 			delete Chart.instances[me.id];
 		},
@@ -690,7 +692,7 @@ module.exports = function(Chart) {
 			}, me);
 			me.tooltip.initialize();
 		},
-
+*/
 		/**
 		 * @private
 		 */
@@ -700,29 +702,30 @@ module.exports = function(Chart) {
 			var listener = function() {
 				me.eventHandler.apply(me, arguments);
 			};
-
+/*
 			helpers.each(me.options.events, function(type) {
 				platform.addEventListener(me, type, listener);
 				listeners[type] = listener;
 			});
-
+*/
 			// Responsiveness is currently based on the use of an iframe, however this method causes
 			// performance issues and could be troublesome when used with ad blockers. So make sure
 			// that the user is still able to create a chart without iframe when responsive is false.
 			// See https://github.com/chartjs/Chart.js/issues/2210
-			if (me.options.responsive) {
+//			if (me.options.responsive) {
 				listener = function() {
 					me.resize();
 				};
 
 				platform.addEventListener(me, 'resize', listener);
 				listeners.resize = listener;
-			}
+//			}
 		},
 
 		/**
 		 * @private
 		 */
+/*
 		unbindEvents: function() {
 			var me = this;
 			var listeners = me._listeners;
@@ -747,17 +750,18 @@ module.exports = function(Chart) {
 				}
 			}
 		},
-
+*/
 		/**
 		 * @private
 		 */
+/*
 		eventHandler: function(e) {
 			var me = this;
 			var tooltip = me.tooltip;
 
-			if (plugins.notify(me, 'beforeEvent', [e]) === false) {
-				return;
-			}
+//			if (plugins.notify(me, 'beforeEvent', [e]) === false) {
+//				return;
+//			}
 
 			// Buffer any update calls so that renders do not occur
 			me._bufferedRender = true;
@@ -766,7 +770,7 @@ module.exports = function(Chart) {
 			var changed = me.handleEvent(e);
 			changed |= tooltip && tooltip.handleEvent(e);
 
-			plugins.notify(me, 'afterEvent', [e]);
+//			plugins.notify(me, 'afterEvent', [e]);
 
 			var bufferedRequest = me._bufferedRequest;
 			if (bufferedRequest) {
@@ -786,13 +790,14 @@ module.exports = function(Chart) {
 
 			return me;
 		},
-
+*/
 		/**
 		 * Handle an event
 		 * @private
 		 * @param {IEvent} event the event to handle
 		 * @return {Boolean} true if the chart needs to re-render
 		 */
+/*
 		handleEvent: function(e) {
 			var me = this;
 			var options = me.options || {};
@@ -838,6 +843,7 @@ module.exports = function(Chart) {
 
 			return changed;
 		}
+*/
 	});
 
 	/**

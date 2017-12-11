@@ -7,6 +7,7 @@ module.exports = function(Chart) {
 	// DOM event types -> Chart.js event types.
 	// Note: only events with different types are mapped.
 	// https://developer.mozilla.org/en-US/docs/Web/Events
+/*
 	var eventTypeMap = {
 		// Touch events
 		touchstart: 'mousedown',
@@ -21,7 +22,7 @@ module.exports = function(Chart) {
 		pointerleave: 'mouseout',
 		pointerout: 'mouseout'
 	};
-
+*/
 	/**
 	 * The "used" size is the final value of a dimension property after all calculations have
 	 * been performed. This method uses the computed style of `element` but returns undefined
@@ -101,13 +102,13 @@ module.exports = function(Chart) {
 			y: y !== undefined? y : null,
 		};
 	}
-
+/*
 	function fromNativeEvent(event, chart) {
 		var type = eventTypeMap[event.type] || event.type;
 		var pos = helpers.getRelativePosition(event, chart);
 		return createEvent(type, chart, pos.x, pos.y, event);
 	}
-
+*/
 	function createResizer(handler) {
 		var iframe = document.createElement('iframe');
 		iframe.className = 'chartjs-hidden-iframe';
@@ -215,7 +216,7 @@ module.exports = function(Chart) {
 
 			return null;
 		},
-
+/*
 		releaseContext: function(context) {
 			var canvas = context.canvas;
 			if (!canvas._chartjs) {
@@ -244,7 +245,7 @@ module.exports = function(Chart) {
 
 			delete canvas._chartjs;
 		},
-
+*/
 		addEventListener: function(chart, type, listener) {
 			var canvas = chart.canvas;
 			if (type === 'resize') {
@@ -252,7 +253,7 @@ module.exports = function(Chart) {
 				addResizeListener(canvas.parentNode, listener, chart);
 				return;
 			}
-
+/*
 			var stub = listener._chartjs || (listener._chartjs = {});
 			var proxies = stub.proxies || (stub.proxies = {});
 			var proxy = proxies[chart.id + '_' + type] = function(event) {
@@ -260,8 +261,9 @@ module.exports = function(Chart) {
 			};
 
 			helpers.addEvent(canvas, type, proxy);
+*/
 		},
-
+/*
 		removeEventListener: function(chart, type, listener) {
 			var canvas = chart.canvas;
 			if (type === 'resize') {
@@ -279,5 +281,6 @@ module.exports = function(Chart) {
 
 			helpers.removeEvent(canvas, type, proxy);
 		}
+*/
 	};
 };

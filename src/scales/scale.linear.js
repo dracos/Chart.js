@@ -31,6 +31,7 @@ module.exports = function(Chart) {
 			me.min = null;
 			me.max = null;
 
+/*
 			var hasStacks = opts.stacked;
 			if (hasStacks === undefined) {
 				helpers.each(datasets, function(dataset, datasetIndex) {
@@ -47,6 +48,7 @@ module.exports = function(Chart) {
 			}
 
 			if (opts.stacked || hasStacks) {
+
 				var valuesPerStack = {};
 
 				helpers.each(datasets, function(dataset, datasetIndex) {
@@ -99,6 +101,7 @@ module.exports = function(Chart) {
 				});
 
 			} else {
+*/
 				helpers.each(datasets, function(dataset, datasetIndex) {
 					var meta = chart.getDatasetMeta(datasetIndex);
 					if (chart.isDatasetVisible(datasetIndex) && IDMatches(meta)) {
@@ -122,7 +125,7 @@ module.exports = function(Chart) {
 						});
 					}
 				});
-			}
+//			}
 
 			me.min = isFinite(me.min) ? me.min : DEFAULT_MIN;
 			me.max = isFinite(me.max) ? me.max : DEFAULT_MAX;
@@ -152,9 +155,11 @@ module.exports = function(Chart) {
 				this.ticks.reverse();
 			}
 		},
+/*
 		getLabelForIndex: function(index, datasetIndex) {
 			return +this.getRightValue(this.chart.data.datasets[datasetIndex].data[index]);
 		},
+*/
 		// Utils
 		getPixelForValue: function(value) {
 			// This must be called after fit has been run so that

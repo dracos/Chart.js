@@ -2,7 +2,7 @@
 /* global document: false */
 'use strict';
 
-var color = require('chartjs-color');
+// var color = require('chartjs-color');
 
 module.exports = function(Chart) {
 	// Global Chart helpers object for utility methods and classes
@@ -278,6 +278,7 @@ module.exports = function(Chart) {
 	helpers.toRadians = function(degrees) {
 		return degrees * (Math.PI / 180);
 	};
+/*
 	helpers.toDegrees = function(radians) {
 		return radians * (180 / Math.PI);
 	};
@@ -301,6 +302,7 @@ module.exports = function(Chart) {
 	helpers.distanceBetweenPoints = function(pt1, pt2) {
 		return Math.sqrt(Math.pow(pt2.x - pt1.x, 2) + Math.pow(pt2.y - pt1.y, 2));
 	};
+*/
 	helpers.aliasPixel = function(pixelWidth) {
 		return (pixelWidth % 2 === 0) ? 0 : 0.5;
 	};
@@ -338,6 +340,7 @@ module.exports = function(Chart) {
 			}
 		};
 	};
+/*
 	helpers.EPSILON = Number.EPSILON || 1e-14;
 	helpers.splineCurveMonotone = function(points) {
 		// This function calculates Bézier control points in a similar way than |splineCurve|,
@@ -430,6 +433,7 @@ module.exports = function(Chart) {
 			}
 		}
 	};
+*/
 	helpers.nextItem = function(collection, index, loop) {
 		if (loop) {
 			return index >= collection.length - 1 ? collection[0] : collection[index + 1];
@@ -470,6 +474,7 @@ module.exports = function(Chart) {
 
 		return niceFraction * Math.pow(10, exponent);
 	};
+/*
 	// Easing functions adapted from Robert Penner's easing equations
 	// http://www.robertpenner.com/easing/
 	var easingEffects = helpers.easingEffects = {
@@ -667,6 +672,7 @@ module.exports = function(Chart) {
 			return easingEffects.easeOutBounce(t * 2 - 1) * 0.5 + 1 * 0.5;
 		}
 	};
+*/
 	// Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
 	helpers.requestAnimFrame = (function() {
 		if (typeof window === 'undefined') {
@@ -683,6 +689,7 @@ module.exports = function(Chart) {
 				return window.setTimeout(callback, 1000 / 60);
 			};
 	}());
+/*
 	// -- DOM methods
 	helpers.getRelativePosition = function(evt, chart) {
 		var mouseX, mouseY;
@@ -721,6 +728,7 @@ module.exports = function(Chart) {
 		};
 
 	};
+*/
 	helpers.addEvent = function(node, eventType, method) {
 		if (node.addEventListener) {
 			node.addEventListener(eventType, method);
@@ -730,6 +738,7 @@ module.exports = function(Chart) {
 			node['on' + eventType] = method;
 		}
 	};
+/*
 	helpers.removeEvent = function(node, eventType, handler) {
 		if (node.removeEventListener) {
 			node.removeEventListener(eventType, handler, false);
@@ -739,7 +748,7 @@ module.exports = function(Chart) {
 			node['on' + eventType] = helpers.noop;
 		}
 	};
-
+*/
 	// Private helper function to convert max-width/max-height values that may be percentages into a number
 	function parseMaxStyle(styleValue, node, parentProperty) {
 		var valueInPixels;
@@ -903,6 +912,7 @@ module.exports = function(Chart) {
 		});
 		return numberOfLines;
 	};
+/*
 	helpers.drawRoundedRectangle = function(ctx, x, y, width, height, radius) {
 		ctx.beginPath();
 		ctx.moveTo(x + radius, y);
@@ -916,21 +926,20 @@ module.exports = function(Chart) {
 		ctx.quadraticCurveTo(x, y, x + radius, y);
 		ctx.closePath();
 	};
-
 	helpers.color = !color?
 		function(value) {
 			console.error('Color.js not found!');
 			return value;
 		} :
 		function(value) {
-			/* global CanvasGradient */
+			// global CanvasGradient
 			if (value instanceof CanvasGradient) {
 				value = Chart.defaults.global.defaultColor;
 			}
 
 			return color(value);
 		};
-
+*/
 	helpers.isArray = Array.isArray?
 		function(obj) {
 			return Array.isArray(obj);
@@ -967,13 +976,14 @@ module.exports = function(Chart) {
 			fn.apply(thisArg, args);
 		}
 	};
+/*
 	helpers.getHoverColor = function(colorValue) {
-		/* global CanvasPattern */
+		// global CanvasPattern
 		return (colorValue instanceof CanvasPattern) ?
 			colorValue :
 			helpers.color(colorValue).saturate(0.5).darken(0.1).rgbString();
 	};
-
+*/
 	/**
 	 * Provided for backward compatibility, use Chart.helpers#callback instead.
 	 * @function Chart.helpers#callCallback

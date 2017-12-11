@@ -1,11 +1,11 @@
 'use strict';
 
-var color = require('chartjs-color');
+// var color = require('chartjs-color');
 
 module.exports = function(Chart) {
 
 	var helpers = Chart.helpers;
-
+/*
 	function interpolate(start, view, model, ease) {
 		var keys = Object.keys(model);
 		var i, ilen, key, actual, origin, target, type, c0, c1;
@@ -54,6 +54,7 @@ module.exports = function(Chart) {
 			view[key] = target;
 		}
 	}
+*/
 
 	Chart.elements = {};
 
@@ -80,14 +81,17 @@ module.exports = function(Chart) {
 		transition: function(ease) {
 			var me = this;
 			var model = me._model;
+/*
 			var start = me._start;
 			var view = me._view;
 
 			// No animation -> No Transition
 			if (!model || ease === 1) {
+*/
 				me._view = model;
 				me._start = null;
 				return me;
+/*
 			}
 
 			if (!view) {
@@ -101,15 +105,16 @@ module.exports = function(Chart) {
 			interpolate(start, view, model, ease);
 
 			return me;
+*/
 		},
-
+/*
 		tooltipPosition: function() {
 			return {
 				x: this._model.x,
 				y: this._model.y
 			};
 		},
-
+*/
 		hasValue: function() {
 			return helpers.isNumber(this._model.x) && helpers.isNumber(this._model.y);
 		}

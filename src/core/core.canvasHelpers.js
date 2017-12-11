@@ -6,7 +6,7 @@ module.exports = function(Chart) {
 
 	helpers.drawPoint = function(ctx, pointStyle, radius, x, y) {
 		var type, edgeLength, xOffset, yOffset, height, size;
-
+/*
 		if (typeof pointStyle === 'object') {
 			type = pointStyle.toString();
 			if (type === '[object HTMLImageElement]' || type === '[object HTMLCanvasElement]') {
@@ -14,18 +14,21 @@ module.exports = function(Chart) {
 				return;
 			}
 		}
-
+*/
 		if (isNaN(radius) || radius <= 0) {
 			return;
 		}
 
+/*
 		switch (pointStyle) {
 		// Default includes circle
 		default:
+*/
 			ctx.beginPath();
 			ctx.arc(x, y, radius, 0, Math.PI * 2);
 			ctx.closePath();
 			ctx.fill();
+/*
 			break;
 		case 'triangle':
 			ctx.beginPath();
@@ -106,6 +109,7 @@ module.exports = function(Chart) {
 			ctx.closePath();
 			break;
 		}
+*/
 
 		ctx.stroke();
 	};

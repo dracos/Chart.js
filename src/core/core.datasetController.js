@@ -138,12 +138,13 @@ module.exports = function(Chart) {
 		/**
 		 * @private
 		 */
+/*
 		destroy: function() {
 			if (this._data) {
 				unlistenArrayEvents(this._data, this);
 			}
 		},
-
+*/
 		createMetaDataset: function() {
 			var me = this;
 			var type = me.datasetElementType;
@@ -237,7 +238,7 @@ module.exports = function(Chart) {
 				elements[i].draw();
 			}
 		},
-
+/*
 		removeHoverStyle: function(element, elementOpts) {
 			var dataset = this.chart.data.datasets[element._datasetIndex],
 				index = element._index,
@@ -262,7 +263,7 @@ module.exports = function(Chart) {
 			model.borderColor = custom.hoverBorderColor ? custom.hoverBorderColor : valueOrDefault(dataset.hoverBorderColor, index, getHoverColor(model.borderColor));
 			model.borderWidth = custom.hoverBorderWidth ? custom.hoverBorderWidth : valueOrDefault(dataset.hoverBorderWidth, index, model.borderWidth);
 		},
-
+*/
 		/**
 		 * @private
 		 */

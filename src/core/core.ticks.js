@@ -99,6 +99,7 @@ module.exports = function(Chart) {
 			 * @param dataRange {IRange} the range of the data
 			 * @returns {Array<Number>} array of tick values
 			 */
+/*
 			logarithmic: function(generationOptions, dataRange) {
 				var ticks = [];
 				var getValueOrDefault = helpers.getValueOrDefault;
@@ -142,6 +143,7 @@ module.exports = function(Chart) {
 
 				return ticks;
 			}
+*/
 		},
 
 		/**
@@ -192,7 +194,7 @@ module.exports = function(Chart) {
 
 				return tickString;
 			},
-
+/*
 			logarithmic: function(tickValue, index, ticks) {
 				var remain = tickValue / (Math.pow(10, Math.floor(helpers.log10(tickValue))));
 
@@ -203,6 +205,7 @@ module.exports = function(Chart) {
 				}
 				return '';
 			}
+*/
 		}
 	};
 };

@@ -7,11 +7,11 @@ module.exports = function(Chart) {
 	Chart.defaults.line = {
 		showLines: true,
 		spanGaps: false,
-
+/*
 		hover: {
 			mode: 'label'
 		},
-
+*/
 		scales: {
 			xAxes: [{
 				type: 'category',
@@ -48,7 +48,7 @@ module.exports = function(Chart) {
 
 			// Update Line
 			if (showLine) {
-				custom = line.custom || {};
+//				custom = line.custom || {};
 
 				// Compatibility: If the properties are defined with only the old name, use those values
 				if ((dataset.tension !== undefined) && (dataset.lineTension === undefined)) {
@@ -67,17 +67,17 @@ module.exports = function(Chart) {
 					// to https://github.com/chartjs/Chart.js/issues/2435#issuecomment-216718158
 					// This option gives lines the ability to span gaps
 					spanGaps: dataset.spanGaps ? dataset.spanGaps : options.spanGaps,
-					tension: custom.tension ? custom.tension : helpers.getValueOrDefault(dataset.lineTension, lineElementOptions.tension),
-					backgroundColor: custom.backgroundColor ? custom.backgroundColor : (dataset.backgroundColor || lineElementOptions.backgroundColor),
-					borderWidth: custom.borderWidth ? custom.borderWidth : (dataset.borderWidth || lineElementOptions.borderWidth),
-					borderColor: custom.borderColor ? custom.borderColor : (dataset.borderColor || lineElementOptions.borderColor),
-					borderCapStyle: custom.borderCapStyle ? custom.borderCapStyle : (dataset.borderCapStyle || lineElementOptions.borderCapStyle),
-					borderDash: custom.borderDash ? custom.borderDash : (dataset.borderDash || lineElementOptions.borderDash),
-					borderDashOffset: custom.borderDashOffset ? custom.borderDashOffset : (dataset.borderDashOffset || lineElementOptions.borderDashOffset),
-					borderJoinStyle: custom.borderJoinStyle ? custom.borderJoinStyle : (dataset.borderJoinStyle || lineElementOptions.borderJoinStyle),
-					fill: custom.fill ? custom.fill : (dataset.fill !== undefined ? dataset.fill : lineElementOptions.fill),
-					steppedLine: custom.steppedLine ? custom.steppedLine : helpers.getValueOrDefault(dataset.steppedLine, lineElementOptions.stepped),
-					cubicInterpolationMode: custom.cubicInterpolationMode ? custom.cubicInterpolationMode : helpers.getValueOrDefault(dataset.cubicInterpolationMode, lineElementOptions.cubicInterpolationMode),
+					tension: helpers.getValueOrDefault(dataset.lineTension, lineElementOptions.tension),
+					backgroundColor: (dataset.backgroundColor || lineElementOptions.backgroundColor),
+					borderWidth: (dataset.borderWidth || lineElementOptions.borderWidth),
+					borderColor: (dataset.borderColor || lineElementOptions.borderColor),
+					borderCapStyle: (dataset.borderCapStyle || lineElementOptions.borderCapStyle),
+					borderDash: (dataset.borderDash || lineElementOptions.borderDash),
+					borderDashOffset: (dataset.borderDashOffset || lineElementOptions.borderDashOffset),
+					borderJoinStyle: (dataset.borderJoinStyle || lineElementOptions.borderJoinStyle),
+					fill: (dataset.fill !== undefined ? dataset.fill : lineElementOptions.fill),
+					steppedLine: helpers.getValueOrDefault(dataset.steppedLine, lineElementOptions.stepped),
+//					cubicInterpolationMode: helpers.getValueOrDefault(dataset.cubicInterpolationMode, lineElementOptions.cubicInterpolationMode),
 				};
 
 				line.pivot();
@@ -97,7 +97,7 @@ module.exports = function(Chart) {
 				points[i].pivot();
 			}
 		},
-
+/*
 		getPointBackgroundColor: function(point, index) {
 			var backgroundColor = this.chart.options.elements.point.backgroundColor;
 			var dataset = this.getDataset();
@@ -145,11 +145,11 @@ module.exports = function(Chart) {
 
 			return borderWidth;
 		},
-
+*/
 		updateElement: function(point, index, reset) {
 			var me = this;
 			var meta = me.getMeta();
-			var custom = point.custom || {};
+//			var custom = point.custom || {};
 			var dataset = me.getDataset();
 			var datasetIndex = me.index;
 			var value = dataset.data[index];
@@ -157,9 +157,10 @@ module.exports = function(Chart) {
 			var xScale = me.getScaleForId(meta.xAxisID);
 			var pointOptions = me.chart.options.elements.point;
 			var x, y;
+
 			var labels = me.chart.data.labels || [];
 			var includeOffset = (labels.length === 1 || dataset.data.length === 1) || me.chart.isCombo;
-
+/*
 			// Compatibility: If the properties are defined with only the old name, use those values
 			if ((dataset.radius !== undefined) && (dataset.pointRadius === undefined)) {
 				dataset.pointRadius = dataset.radius;
@@ -167,7 +168,7 @@ module.exports = function(Chart) {
 			if ((dataset.hitRadius !== undefined) && (dataset.pointHitRadius === undefined)) {
 				dataset.pointHitRadius = dataset.hitRadius;
 			}
-
+*/
 			x = xScale.getPixelForValue(typeof value === 'object' ? value : NaN, index, datasetIndex, includeOffset);
 			y = reset ? yScale.getBasePixel() : me.calculatePointY(value, index, datasetIndex);
 
@@ -181,17 +182,17 @@ module.exports = function(Chart) {
 			point._model = {
 				x: x,
 				y: y,
-				skip: custom.skip || isNaN(x) || isNaN(y),
+				skip: isNaN(x) || isNaN(y),
 				// Appearance
-				radius: custom.radius || helpers.getValueAtIndexOrDefault(dataset.pointRadius, index, pointOptions.radius),
-				pointStyle: custom.pointStyle || helpers.getValueAtIndexOrDefault(dataset.pointStyle, index, pointOptions.pointStyle),
-				backgroundColor: me.getPointBackgroundColor(point, index),
-				borderColor: me.getPointBorderColor(point, index),
-				borderWidth: me.getPointBorderWidth(point, index),
+				radius: helpers.getValueAtIndexOrDefault(dataset.pointRadius, index, pointOptions.radius),
+				pointStyle: helpers.getValueAtIndexOrDefault(dataset.pointStyle, index, pointOptions.pointStyle),
+				backgroundColor: dataset.pointBackgroundColor,
+				borderColor: dataset.borderColor,
+				borderWidth: dataset.pointBorderWidth,
 				tension: meta.dataset._model ? meta.dataset._model.tension : 0,
 				steppedLine: meta.dataset._model ? meta.dataset._model.steppedLine : false,
 				// Tooltip
-				hitRadius: custom.hitRadius || helpers.getValueAtIndexOrDefault(dataset.pointHitRadius, index, pointOptions.hitRadius)
+//				hitRadius: custom.hitRadius || helpers.getValueAtIndexOrDefault(dataset.pointHitRadius, index, pointOptions.hitRadius)
 			};
 		},
 
@@ -203,7 +204,7 @@ module.exports = function(Chart) {
 			var sumPos = 0;
 			var sumNeg = 0;
 			var i, ds, dsMeta;
-
+/*
 			if (yScale.options.stacked) {
 				for (i = 0; i < datasetIndex; i++) {
 					ds = chart.data.datasets[i];
@@ -224,7 +225,7 @@ module.exports = function(Chart) {
 				}
 				return yScale.getPixelForValue(sumPos + rightValue);
 			}
-
+*/
 			return yScale.getPixelForValue(value);
 		},
 
@@ -246,9 +247,9 @@ module.exports = function(Chart) {
 				return Math.max(Math.min(pt, max), min);
 			}
 
-			if (meta.dataset._model.cubicInterpolationMode === 'monotone') {
-				helpers.splineCurveMonotone(points);
-			} else {
+//			if (meta.dataset._model.cubicInterpolationMode === 'monotone') {
+//				helpers.splineCurveMonotone(points);
+//			} else {
 				for (i = 0, ilen = points.length; i < ilen; ++i) {
 					point = points[i];
 					model = point._model;
@@ -263,7 +264,7 @@ module.exports = function(Chart) {
 					model.controlPointNextX = controlPoints.next.x;
 					model.controlPointNextY = controlPoints.next.y;
 				}
-			}
+//			}
 
 			if (me.chart.options.elements.line.capBezierPoints) {
 				for (i = 0, ilen = points.length; i < ilen; ++i) {
@@ -298,7 +299,7 @@ module.exports = function(Chart) {
 				points[i].draw(area);
 			}
 		},
-
+/*
 		setHoverStyle: function(point) {
 			// Point
 			var dataset = this.chart.data.datasets[point._datasetIndex];
@@ -329,5 +330,6 @@ module.exports = function(Chart) {
 			model.borderColor = me.getPointBorderColor(point, index);
 			model.borderWidth = me.getPointBorderWidth(point, index);
 		}
+*/
 	});
 };

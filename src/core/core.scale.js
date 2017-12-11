@@ -13,7 +13,7 @@ module.exports = function(Chart) {
 			display: true,
 			color: 'rgba(0, 0, 0, 0.1)',
 			lineWidth: 1,
-			drawBorder: true,
+//			drawBorder: true,
 			drawOnChartArea: true,
 			drawTicks: true,
 			tickMarkLength: 10,
@@ -27,17 +27,17 @@ module.exports = function(Chart) {
 		},
 
 		// scale label
-		scaleLabel: {
+//		scaleLabel: {
 			// actual label
-			labelString: '',
+//			labelString: '',
 
 			// display property
-			display: false
-		},
+//			display: false
+//		},
 
 		// label settings
 		ticks: {
-			beginAtZero: false,
+//			beginAtZero: false,
 			minRotation: 0,
 			maxRotation: 50,
 			mirror: false,
@@ -61,9 +61,9 @@ module.exports = function(Chart) {
 	function parseFontOptions(options) {
 		var getValueOrDefault = helpers.getValueOrDefault;
 		var globalDefaults = Chart.defaults.global;
-		var size = getValueOrDefault(options.fontSize, globalDefaults.defaultFontSize);
-		var style = getValueOrDefault(options.fontStyle, globalDefaults.defaultFontStyle);
-		var family = getValueOrDefault(options.fontFamily, globalDefaults.defaultFontFamily);
+		var size = globalDefaults.defaultFontSize;
+		var style = globalDefaults.defaultFontStyle;
+		var family = globalDefaults.defaultFontFamily;
 
 		return {
 			size: size,
@@ -94,14 +94,14 @@ module.exports = function(Chart) {
 		// Any function defined here is inherited by all scale types.
 		// Any function can be extended by the scale type
 
-		beforeUpdate: function() {
-			helpers.callback(this.options.beforeUpdate, [this]);
-		},
+//		beforeUpdate: function() {
+//			helpers.callback(this.options.beforeUpdate, [this]);
+//		},
 		update: function(maxWidth, maxHeight, margins) {
 			var me = this;
 
 			// Update Lifecycle - Probably don't want to ever extend or overwrite this function ;)
-			me.beforeUpdate();
+//			me.beforeUpdate();
 
 			// Absorb the master measurements
 			me.maxWidth = maxWidth;
@@ -115,47 +115,48 @@ module.exports = function(Chart) {
 			me.longestTextCache = me.longestTextCache || {};
 
 			// Dimensions
-			me.beforeSetDimensions();
+//			me.beforeSetDimensions();
 			me.setDimensions();
-			me.afterSetDimensions();
+//			me.afterSetDimensions();
 
 			// Data min/max
-			me.beforeDataLimits();
+//			me.beforeDataLimits();
 			me.determineDataLimits();
-			me.afterDataLimits();
+//			me.afterDataLimits();
 
 			// Ticks
-			me.beforeBuildTicks();
+//			me.beforeBuildTicks();
 			me.buildTicks();
-			me.afterBuildTicks();
+//			me.afterBuildTicks();
 
-			me.beforeTickToLabelConversion();
+//			me.beforeTickToLabelConversion();
 			me.convertTicksToLabels();
-			me.afterTickToLabelConversion();
+//			me.afterTickToLabelConversion();
 
 			// Tick Rotation
-			me.beforeCalculateTickRotation();
+//			me.beforeCalculateTickRotation();
 			me.calculateTickRotation();
-			me.afterCalculateTickRotation();
+//			me.afterCalculateTickRotation();
 			// Fit
-			me.beforeFit();
+//			me.beforeFit();
 			me.fit();
-			me.afterFit();
+//			me.afterFit();
 			//
-			me.afterUpdate();
+//			me.afterUpdate();
 
 			return me.minSize;
 
 		},
-		afterUpdate: function() {
+/*		afterUpdate: function() {
 			helpers.callback(this.options.afterUpdate, [this]);
 		},
-
+*/
 		//
-
+/*
 		beforeSetDimensions: function() {
 			helpers.callback(this.options.beforeSetDimensions, [this]);
 		},
+*/
 		setDimensions: function() {
 			var me = this;
 			// Set the unconstrained dimension before label rotation
@@ -178,6 +179,7 @@ module.exports = function(Chart) {
 			me.paddingRight = 0;
 			me.paddingBottom = 0;
 		},
+/*
 		afterSetDimensions: function() {
 			helpers.callback(this.options.afterSetDimensions, [this]);
 		},
@@ -186,8 +188,9 @@ module.exports = function(Chart) {
 		beforeDataLimits: function() {
 			helpers.callback(this.options.beforeDataLimits, [this]);
 		},
+*/
 		determineDataLimits: helpers.noop,
-		afterDataLimits: function() {
+/*		afterDataLimits: function() {
 			helpers.callback(this.options.afterDataLimits, [this]);
 		},
 
@@ -195,7 +198,9 @@ module.exports = function(Chart) {
 		beforeBuildTicks: function() {
 			helpers.callback(this.options.beforeBuildTicks, [this]);
 		},
+*/
 		buildTicks: helpers.noop,
+/*
 		afterBuildTicks: function() {
 			helpers.callback(this.options.afterBuildTicks, [this]);
 		},
@@ -203,12 +208,14 @@ module.exports = function(Chart) {
 		beforeTickToLabelConversion: function() {
 			helpers.callback(this.options.beforeTickToLabelConversion, [this]);
 		},
+*/
 		convertTicksToLabels: function() {
 			var me = this;
 			// Convert ticks to strings
 			var tickOpts = me.options.ticks;
 			me.ticks = me.ticks.map(tickOpts.userCallback || tickOpts.callback);
 		},
+/*
 		afterTickToLabelConversion: function() {
 			helpers.callback(this.options.afterTickToLabelConversion, [this]);
 		},
@@ -218,6 +225,7 @@ module.exports = function(Chart) {
 		beforeCalculateTickRotation: function() {
 			helpers.callback(this.options.beforeCalculateTickRotation, [this]);
 		},
+*/
 		calculateTickRotation: function() {
 			var me = this;
 			var context = me.ctx;
@@ -258,6 +266,7 @@ module.exports = function(Chart) {
 
 			me.labelRotation = labelRotation;
 		},
+/*
 		afterCalculateTickRotation: function() {
 			helpers.callback(this.options.afterCalculateTickRotation, [this]);
 		},
@@ -267,6 +276,7 @@ module.exports = function(Chart) {
 		beforeFit: function() {
 			helpers.callback(this.options.beforeFit, [this]);
 		},
+*/
 		fit: function() {
 			var me = this;
 			// Reset
@@ -277,13 +287,13 @@ module.exports = function(Chart) {
 
 			var opts = me.options;
 			var tickOpts = opts.ticks;
-			var scaleLabelOpts = opts.scaleLabel;
+//			var scaleLabelOpts = opts.scaleLabel;
 			var gridLineOpts = opts.gridLines;
 			var display = opts.display;
 			var isHorizontal = me.isHorizontal();
 
 			var tickFont = parseFontOptions(tickOpts);
-			var scaleLabelFontSize = parseFontOptions(scaleLabelOpts).size * 1.5;
+//			var scaleLabelFontSize = parseFontOptions(scaleLabelOpts).size * 1.5;
 			var tickMarkLength = opts.gridLines.tickMarkLength;
 
 			// Width
@@ -302,14 +312,14 @@ module.exports = function(Chart) {
 			}
 
 			// Are we showing a title for the scale?
-			if (scaleLabelOpts.display && display) {
+/*			if (scaleLabelOpts.display && display) {
 				if (isHorizontal) {
 					minSize.height += scaleLabelFontSize;
 				} else {
 					minSize.width += scaleLabelFontSize;
 				}
 			}
-
+*/
 			// Don't bother fitting the ticks if we are not showing them
 			if (tickOpts.display && display) {
 				var largestTextWidth = helpers.longestText(me.ctx, tickFont.font, me.ticks, me.longestTextCache);
@@ -381,11 +391,11 @@ module.exports = function(Chart) {
 				me.paddingBottom = Math.max(me.paddingBottom - me.margins.bottom, 0);
 			}
 		},
-
+/*
 		afterFit: function() {
 			helpers.callback(this.options.afterFit, [this]);
 		},
-
+*/
 		// Shared Methods
 		isHorizontal: function() {
 			return this.options.position === 'top' || this.options.position === 'bottom';
@@ -418,7 +428,7 @@ module.exports = function(Chart) {
 
 		// Used to get the value to display in the tooltip for the data at the given index
 		// function getLabelForIndex(index, datasetIndex)
-		getLabelForIndex: helpers.noop,
+//		getLabelForIndex: helpers.noop,
 
 		// Used to get data value locations.  Value can either be an index or a numerical value
 		getPixelForValue: helpers.noop,
@@ -469,7 +479,7 @@ module.exports = function(Chart) {
 			var min = me.min;
 			var max = me.max;
 
-			return me.beginAtZero ? 0:
+			return // me.beginAtZero ? 0:
 				min < 0 && max < 0? max :
 				min > 0 && max > 0? min :
 				0;
@@ -488,7 +498,7 @@ module.exports = function(Chart) {
 			var globalDefaults = Chart.defaults.global;
 			var optionTicks = options.ticks;
 			var gridLines = options.gridLines;
-			var scaleLabel = options.scaleLabel;
+//			var scaleLabel = options.scaleLabel;
 
 			var isRotated = me.labelRotation !== 0;
 			var skipRatio;
@@ -506,8 +516,8 @@ module.exports = function(Chart) {
 
 			var tl = gridLines.drawTicks ? gridLines.tickMarkLength : 0;
 
-			var scaleLabelFontColor = helpers.getValueOrDefault(scaleLabel.fontColor, globalDefaults.defaultFontColor);
-			var scaleLabelFont = parseFontOptions(scaleLabel);
+//			var scaleLabelFontColor = helpers.getValueOrDefault(scaleLabel.fontColor, globalDefaults.defaultFontColor);
+//			var scaleLabelFont = parseFontOptions(scaleLabel);
 
 			var labelRotationRadians = helpers.toRadians(me.labelRotation);
 			var cosRotation = Math.cos(labelRotationRadians);
@@ -699,7 +709,7 @@ module.exports = function(Chart) {
 					context.restore();
 				}
 			});
-
+/*
 			if (scaleLabel.display) {
 				// Draw the scale label
 				var scaleLabelX;
@@ -726,7 +736,8 @@ module.exports = function(Chart) {
 				context.fillText(scaleLabel.labelString, 0, 0);
 				context.restore();
 			}
-
+*/
+/*
 			if (gridLines.drawBorder) {
 				// Draw the line at the edge of the axis
 				context.lineWidth = helpers.getValueAtIndexOrDefault(gridLines.lineWidth, 0);
@@ -752,6 +763,7 @@ module.exports = function(Chart) {
 				context.lineTo(x2, y2);
 				context.stroke();
 			}
+*/
 		}
 	});
 };

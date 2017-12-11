@@ -10,12 +10,12 @@ module.exports = function(Chart) {
 		radius: 3,
 		pointStyle: 'circle',
 		backgroundColor: defaultColor,
-		borderWidth: 1,
+		borderWidth: 0, // XXX !!!
 		borderColor: defaultColor,
 		// Hover
-		hitRadius: 1,
-		hoverRadius: 4,
-		hoverBorderWidth: 1
+//		hitRadius: 1,
+//		hoverRadius: 4,
+//		hoverBorderWidth: 1
 	};
 
 	function xRange(mouseX) {
@@ -29,6 +29,7 @@ module.exports = function(Chart) {
 	}
 
 	Chart.elements.Point = Chart.Element.extend({
+/*
 		inRange: function(mouseX, mouseY) {
 			var vm = this._view;
 			return vm ? ((Math.pow(mouseX - vm.x, 2) + Math.pow(mouseY - vm.y, 2)) < Math.pow(vm.hitRadius + vm.radius, 2)) : false;
@@ -37,7 +38,7 @@ module.exports = function(Chart) {
 		inLabelRange: xRange,
 		inXRange: xRange,
 		inYRange: yRange,
-
+*/
 		getCenterPoint: function() {
 			var vm = this._view;
 			return {
@@ -48,6 +49,7 @@ module.exports = function(Chart) {
 		getArea: function() {
 			return Math.PI * Math.pow(this._view.radius, 2);
 		},
+/*
 		tooltipPosition: function() {
 			var vm = this._view;
 			return {
@@ -56,6 +58,7 @@ module.exports = function(Chart) {
 				padding: vm.radius + vm.borderWidth
 			};
 		},
+*/
 		draw: function(chartArea) {
 			var vm = this._view;
 			var model = this._model;
@@ -64,9 +67,9 @@ module.exports = function(Chart) {
 			var radius = vm.radius;
 			var x = vm.x;
 			var y = vm.y;
-			var color = Chart.helpers.color;
-			var errMargin = 1.01; // 1.01 is margin for Accumulated error. (Especially Edge, IE.)
-			var ratio = 0;
+//			var color = Chart.helpers.color;
+//			var errMargin = 1.01; // 1.01 is margin for Accumulated error. (Especially Edge, IE.)
+//			var ratio = 0;
 
 			if (vm.skip) {
 				return;
@@ -78,6 +81,7 @@ module.exports = function(Chart) {
 
 			// Cliping for Points.
 			// going out from inner charArea?
+/*
 			if ((chartArea !== undefined) && ((model.x < chartArea.left) || (chartArea.right*errMargin < model.x) || (model.y < chartArea.top) || (chartArea.bottom*errMargin < model.y))) {
 				// Point fade out
 				if (model.x < chartArea.left) {
@@ -93,7 +97,7 @@ module.exports = function(Chart) {
 				ctx.strokeStyle = color(ctx.strokeStyle).alpha(ratio).rgbString();
 				ctx.fillStyle = color(ctx.fillStyle).alpha(ratio).rgbString();
 			}
-
+*/
 			Chart.canvasHelpers.drawPoint(ctx, pointStyle, radius, x, y);
 		}
 	});

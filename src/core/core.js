@@ -11,17 +11,17 @@ module.exports = function() {
 	// Globally expose the defaults to allow for user updating/changing
 	Chart.defaults = {
 		global: {
-			responsive: true,
-			responsiveAnimationDuration: 0,
+//			responsive: true,
+//			responsiveAnimationDuration: 0,
 			maintainAspectRatio: true,
-			events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
-			hover: {
-				onHover: null,
-				mode: 'nearest',
-				intersect: true,
-				animationDuration: 400
-			},
-			onClick: null,
+//			events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+//			hover: {
+//				onHover: null,
+//				mode: 'nearest',
+//				intersect: true,
+//				animationDuration: 400
+//			},
+//			onClick: null,
 			defaultColor: 'rgba(0,0,0,0.1)',
 			defaultFontColor: '#666',
 			defaultFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
@@ -33,7 +33,7 @@ module.exports = function() {
 			elements: {},
 
 			// Legend callback string
-			legendCallback: function(chart) {
+/*			legendCallback: function(chart) {
 				var text = [];
 				text.push('<ul class="' + chart.id + '-legend">');
 				for (var i = 0; i < chart.data.datasets.length; i++) {
@@ -47,6 +47,7 @@ module.exports = function() {
 
 				return text.join('');
 			}
+*/
 		}
 	};
 
