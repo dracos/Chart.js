@@ -21,7 +21,7 @@ require('./core/core.scale')(Chart);
 //require('./elements/element.arc')(Chart);
 require('./elements/element.line')(Chart);
 require('./elements/element.point')(Chart);
-//require('./elements/element.rectangle')(Chart);
+require('./elements/element.rectangle')(Chart);
 
 require('./scales/scale.linearbase.js')(Chart);
 require('./scales/scale.category')(Chart);
@@ -32,7 +32,7 @@ require('./scales/scale.linear')(Chart);
 
 // Controllers must be loaded after elements
 // See Chart.core.datasetController.dataElementType
-//require('./controllers/controller.bar')(Chart);
+require('./controllers/controller.bar')(Chart);
 //require('./controllers/controller.bubble')(Chart);
 //require('./controllers/controller.doughnut')(Chart);
 require('./controllers/controller.line')(Chart);
